@@ -153,4 +153,4 @@ bar {
 }
 
 # Restart i3 for i3bar 
-exec i3-msg restart
+#exec i3-msg restart
