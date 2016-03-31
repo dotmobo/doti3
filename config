@@ -154,3 +154,6 @@ bar {
 
 # Restart i3 for i3bar 
 #exec i3-msg restart
+
+# Notifications
+exec --no-startup-id dunst
