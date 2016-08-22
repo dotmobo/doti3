@@ -126,8 +126,8 @@ exec --no-startup-id xautolock -time 3 -locker "i3lock -c 000000 -d -n"
 exec --no-startup-id nitrogen --restore
 
 # volume
-bindsym $mod+KP_Add exec pactl set-sink-volume 0 -- +10%
-bindsym $mod+KP_Subtract exec pactl set-sink-volume 0 -- -10% 
+bindsym $mod+KP_Add exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym $mod+KP_Subtract exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 
 # redshift
 exec --no-startup-id gtk-redshift -l manual:lat=48.549999:lon=7.633333
