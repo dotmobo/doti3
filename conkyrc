@@ -1,0 +1,129 @@
+conky.config = {
+
+        -- position
+        alignment = 'top_right',
+        gap_x = 20,
+        gap_y = 20,
+
+        --size
+        minimum_width = 240,
+        minimum_height = 1000,
+        maximum_width = 340,
+        short_units = true ,
+        pad_percents =  1,
+
+        -- background   
+        background = false,
+
+        -- borders
+        border_width = 1,
+        
+        -- color
+        default_color = 'white',
+        default_outline_color = 'white',
+        default_shade_color = 'white',
+    
+        -- frame
+        draw_borders = false,
+        
+        stippled_borders = 0,
+        draw_graph_borders = true,
+        draw_outline = false,
+    
+        -- shadows
+        draw_shades = false,
+
+        -- better fonts
+        use_xft = true,
+        
+        -- font = 'DejaVu Sans Mono:size=12',
+        -- no_buffers = true,
+        out_to_console = false,
+        out_to_stderr = false,
+        extra_newline = false,
+    
+        -- window settings
+        own_window = true,
+        own_window_class = 'Conky',
+        own_window_transparent = true,
+        -- own_window_argb_visual = true,
+        -- own_window_argb_value = 0,
+        own_window_type = 'override',
+    
+        -- update interval
+        update_interval = 0.5,
+        total_run_times = 0,
+
+        uppercase = false,
+        use_spacer = 'none',
+   
+        -- anti-flickering
+        double_buffer = true,
+
+        show_graph_scale = false,
+        show_graph_range = false,
+        -- text_buffer_size = 1000,
+        font = 'Liberation Sans:bold:size=9', --important for shades
+        template0 = 'Liberation Sans:bold:size=10',
+        template1 = 'Liberation Mono:bold:size=12',
+        template2 = 'Liberation Mono:bold:size=40',
+        template3 = 'Liberation Mono:bold:size=5',
+        template4 = 'Liberation Mono:bold:size=9'
+}
+
+
+-- Host Name/Username/Workspace/Uptime Section
+conky.text = [[${alignc}${font El Abogado Loco:bold:pixelsize=38}${color #FFFFFF}$nodename${font}
+${voffset 1}${alignc}${font arial:bold:pixelsize=12}${color #FFA300} ${exec whoami} | $desktop : $desktop_name | $uptime_short${font}
+${voffset -5}${alignc}${color EAEAEA}${font Arial:pixelsize=44}${time %l:%M.}${font Arial:pixelsize=38}${time %S}${font Arial:pixelsize=28}${time %p}
+${voffset -15}${alignc}${font Arial:bold:pixelsize=14}${color #FFA300}${time %A %d %B %Y}
+
+####  Information Section
+${voffset -7}${font $template1}${color #FFFFFF}Information ${hr 2}${font $template4}${color #FFA300}
+${alignc}Linux ${kernel} on ${machine}${color lightslategay}
+${color lightslategray}${execi 15 lsb_release -d}
+${execi 15 lsb_release -c}
+
+#### CPU/Processor Section
+${voffset -7}${font $template1}${color #FFFFFF}Processor ${hr 2}${font $template4}${color #FFA300}
+${alignc}${execi 100 lscpu | grep -i "model name" | cut -c 20-}${color lightslategray}
+${color lightslategray}CPU 1 | ${cpu cpu1}%${alignr}CPU 2 | ${cpu cpu2}%${color #FFA300}
+${cpugraph cpu1 8,115 FFA300 FFA300}${alignr}${cpugraph cpu2 8,115 FFA300 FFA300}
+${color lightslategray}CPU 3 | ${cpu cpu3}%${alignr}CPU 4 | ${cpu cpu4}%${color #FFA300}
+${cpugraph cpu3 8,115 FFA300 FFA300}${alignr}${cpugraph cpu4 8,115 FFA300 FFA300}
+${color lightslategray}${top name 1}${alignr}${top cpu 1}%
+
+#### Memory Section
+${voffset -7}${font $template1}${color #FFFFFF}Memory ${hr 2}${font $template4}${color lightslategray}
+#Showing memory part with TOP 3 
+RAM:$mem / $memmax ${alignr} $memperc%
+${color #FFA300}${membar 8,240 FFA300 FFA300}${color lightslategray}
+SWAP:$swap / $swapmax ${alignr} $swapperc%
+${color #FFA300}${swapbar 8,240 FFA300 FFA300}${color lightslategray}
+${color lightslategray}${top_mem name 1}${alignr}${top_mem mem 1}%
+${color lightslategray}${top_mem name 2}${alignr}${top_mem mem 2}%
+${color lightslategray}${top_mem name 3}${alignr}${top_mem mem 3}%
+
+#### Disk Partitions Section
+${voffset -7}# Showing disk partitions: root, home  etc. 
+${offset 0}${font $template1}${color #FFFFFF}Disks ${hr 2}${font $template0}${color lightslategray}
+${color #FFA300}${diskiograph 8,240 FFA300 FFA300}
+${color #FFFFFF}FS / (size)${goto 170}${alignc}Used${alignr}Free${font $template4}
+${color lightslategray}/ (${fs_size /})${goto 170}${alignc}${fs_used /}${alignr}${fs_free /}
+${color lightslategray}/home (${fs_size /home})${goto 170}${alignc}${fs_used /home}${alignr}${fs_free /home}
+
+#### Temperatures Section
+${voffset -7}${font $template1}${color #FFFFFF}Temperatures ${hr 2}${font $template4}${color lightslategray}
+Temperature 1:  ${alignr}${execi 15 sensors | head -n 10 | grep -i "temp1" | cut -c 15-22}
+Temperature 2:  ${alignr}${execi 15 sensors | head -n 10 | grep -i "temp2" | cut -c 15-22}
+Temperature Physical id 0:  ${alignr}${execi 15 sensors | head -n 10 | grep -i "Physical id 0" | cut -c 17-24}
+Temperature Core 0:  ${alignr}${execi 15 sensors | head -n 10 | grep -i "Core 0" | cut -c 17-24}
+Temperature Core 1:  ${alignr}${execi 15 sensors | head -n 10 | grep -i "Core 1" | cut -c 17-24}
+
+#### Network Section
+${voffset -7}${font $template1}${color #FFFFFF}Network ${hr 2}${font $template4}${color lightslategray}
+Download ${downspeedf eth0}kb/s ${alignr}Upload ${upspeedf eth0}kb/s
+${color #FFA300}${downspeedgraph eth0 8,115 FFA300 FFA300 1 -t -l} $alignr}${upspeedgraph eth0 8,115 FFA300 FFA300 1 -t -l}${color} 
+IP Address${alignr}${addr eth0}
+]]
+

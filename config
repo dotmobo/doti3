@@ -125,6 +125,9 @@ exec --no-startup-id xautolock -time 3 -locker "i3lock -c 000000 -d -n"
 #nitrogen
 exec --no-startup-id nitrogen --restore
 
+#conky
+exec --no-startup-id conky -c $HOME/.i3/conkyrc
+
 # volume
 bindsym $mod+KP_Add exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym $mod+KP_Subtract exec pactl set-sink-volume @DEFAULT_SINK@ -10%
