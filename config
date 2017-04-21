@@ -1,4 +1,7 @@
+# Alt Key 
 set $mod Mod1
+# Windows key
+# set $mod Mod4
 
 # Font
 font pango:DejaVu Sans Mono 8
@@ -115,9 +118,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Multiple monitors
-exec --no-startup-id xrandr --output DP1 --mode 1920x1080 --left-of VGA1
-workspace 1 output DP1
-workspace 2 output VGA1
+#exec --no-startup-id xrandr --output DP1 --mode 1920x1080 --left-of DVI1
+#workspace 1 output DP1
+#workspace 2 output VGA1
 
 # xautolock
 exec --no-startup-id xautolock -time 3 -locker "i3lock -c 000000 -d -n"
